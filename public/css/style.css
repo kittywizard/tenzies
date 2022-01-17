@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  background-color: #0B2434;
+  font-family: "Karla", sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.app {
+  background-color: #F5F5F5;
+  padding: 2em;
+  border-radius: 3em;
+}
+
+.header {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/*# sourceMappingURL=style.css.map */

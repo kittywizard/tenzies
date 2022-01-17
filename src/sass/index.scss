@@ -1,0 +1,29 @@
+
+@import "variables";
+@import "mixins";
+
+body {
+  margin: 0;
+  background-color: $bg-color;
+  font-family: $font-family, sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.app {
+  background-color: $app-color;
+  padding: 2em;
+  border-radius: 3em;
+}
+
+.header {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+}

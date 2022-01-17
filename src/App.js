@@ -1,9 +1,8 @@
-import logo from './logo.svg';
 
 function App() {
   return (
-    <div className="App">
-      default
+    <div className="app">
+      <h3 className="header">Tenzies</h3>
     </div>
   );
 }
