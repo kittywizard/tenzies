@@ -20,10 +20,46 @@ body {
   background-color: $app-color;
   padding: 2em;
   border-radius: 3em;
+  text-align: center;
 }
 
 .header {
   font-size: 3rem;
   font-weight: 700;
+  margin: 0;
+}
+
+.subhead {
+  font-weight: 300;
+  font-size: 1rem;
+  margin-top: 0.3em;
+}
+
+/* 
+  DICE
+*/
+
+.die-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 1em;
+
+}
+
+.die {
+  padding: 0.5em 0.75em;
+  width: 50px;
+  height: 50px;
+  margin: 0.5em;
+  border-radius: 0.2em;
+  background-color: $die-bg;
+  cursor: pointer;
+}
+
+.die-value {
+  color: $die-text;
+  font-weight: 700;
+  font-size: 2rem;
   margin: 0;
 }
