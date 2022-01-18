@@ -58,4 +58,8 @@ body {
   margin: 0;
 }
 
+.active-die {
+  background-color: aqua;
+}
+
 /*# sourceMappingURL=style.css.map */

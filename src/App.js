@@ -5,30 +5,64 @@ function App() {
   const dieLength = 10;
   const min = 1;
   const max = 6;
-  let diceArray = [];
-  
-  for(let i = 0; i < dieLength; i++) {
-      //generate random number
-      let randomNum = (min, max) => Math.floor((Math.random() * (max - min + 1)) + min);
+  let diceArray;
+  let isWinner = false;
+  let randomNum = (min, max) => Math.floor((Math.random() * (max - min + 1)) + min);
 
+  const [die, setDie] = React.useState([]);
+
+  //this should run only once - set up the initial dice rolls upon initial page render
+  React.useEffect(() => {
+    diceArray = [];
+
+    for(let i = 0; i < dieLength; i++) {
       diceArray.push({
         value: randomNum(min, max),
-        id: i
+        id: i+1,
+        active: false
       });
-      //console.log(diceArray)
+   } 
+
+   setDie(diceArray);
+  }, [diceArray]);
+
+  function rollDice() {
+    setDie(prevState => prevState.map(die => {
+      return !die.active ? {...die, value: randomNum(min, max)} : die
+     }))
   }
 
-const [die, setDie] = React.useState(diceArray);
+  function toggle(id) {
+    setDie(prevState => prevState.map(die => {
+        return id === die.id ? {...die, active: true} : die
+    }))
+    //check for win condition after all variables return an active:true state
+    let winnerCheck = 0;
+    for(let v = 0; v < die.length; v++) {
+        if(die[v].active) {
+          winnerCheck++;
+          console.log('updating winner ' + winnerCheck)
+      } else {
+        break;
+        //break out of this loop
+        }
+    }
 
+    //at the end of the loop, check to see if 
+    winnerCheck === 10 ? console.log('you win!') : isWinner = false;
+  }
+
+  //pass in just the object?
  let dieDisplay = die.map(die => {
     return <Die 
       value={die.value}
       key={die.id}
+      id={die.id}
+      active={die.active}
       setDie={setDie}
+      toggle={toggle}
     />
   })
-
-  console.log(die);
 
   return (
     <main className="app">
@@ -37,6 +71,11 @@ const [die, setDie] = React.useState(diceArray);
       <div className="die-container">
           {dieDisplay}
       </div>
+      <button 
+        className="btn"
+        onClick={rollDice}>
+         {isWinner ? "Start over" : "Roll"}
+        </button>
     </main>
   );
 }

@@ -1,7 +1,7 @@
 export default function Die(props) {
-    console.log(props)
     return (
-        <div className="die">
+        <div className={props.active ? "die active-die" : "die"} 
+             onClick={() => props.toggle(props.id)}>
             <p className="die-value">
                 {props.value}
             </p>
