@@ -10,6 +10,18 @@ function App() {
   let randomNum = (min, max) => Math.floor((Math.random() * (max - min + 1)) + min);
 
   const [die, setDie] = React.useState([]);
+  const [tenzies, setTenzies] = React.useState(false);
+
+  //check each time the die array changes to see if there's a win
+  React.useEffect(() => {
+    die.every(element => {
+      return element.active &&
+      element.value == die[0].value
+    }) ? setTenzies(true) : setTenzies(false)
+
+    //need to check also if every die.value is the same number before setting tenzies to true
+
+  }, [die])
 
   //this should run only once - set up the initial dice rolls upon initial page render
   React.useEffect(() => {
@@ -33,27 +45,12 @@ function App() {
      }))
   }
 
-  let isWinner = false;
-
   function toggle(id) {
     setDie(prevState => prevState.map(die => {
         return id === die.id ? {...die, active: true} : die
     }))
-    //check for win condition after all variables return an active:true state
-    let winnerCheck = 0;
-    for(let v = 0; v < die.length; v++) {
-        if(die[v].active) {
-          winnerCheck++;
-          console.log('updating winner ' + winnerCheck)
-      } else {
-        break;
-        //break out of this loop
-        }
-    }
-
-    //at the end of the loop, check to see if 
-    winnerCheck === 10 ? console.log('you win!') : isWinner = false;
   }
+ 
 
   //pass in just the object?
  let dieDisplay = die.map(die => {
@@ -77,7 +74,7 @@ function App() {
       <button 
         className="btn"
         onClick={rollDice}>
-         {isWinner ? "Start over" : "Roll"}
+         {tenzies ? "Start over" : "Roll"}
         </button>
     </main>
   );
