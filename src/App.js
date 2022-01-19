@@ -1,6 +1,7 @@
 import React from "react";
 import Die from "./Die";
 import {nanoid} from "nanoid";
+import Confetti from "react-confetti";
 
 function App() {
   const dieLength = 10;
@@ -19,8 +20,7 @@ function App() {
       element.value == die[0].value
     }) ? setTenzies(true) : setTenzies(false)
 
-    //need to check also if every die.value is the same number before setting tenzies to true
-
+    //potentially set this to a variable and then check it
   }, [die])
 
   //this should run only once - set up the initial dice rolls upon initial page render
@@ -40,6 +40,12 @@ function App() {
   }, [diceArray]);
 
   function rollDice() {
+    //check for win condition first
+    if(tenzies) {
+      window.location.reload();
+    }
+
+    //update state if not
     setDie(prevState => prevState.map(die => {
       return !die.active ? {...die, value: randomNum(min, max)} : die
      }))
@@ -47,7 +53,7 @@ function App() {
 
   function toggle(id) {
     setDie(prevState => prevState.map(die => {
-        return id === die.id ? {...die, active: true} : die
+        return id === die.id ? {...die, active: !die.active} : die
     }))
   }
  
@@ -66,6 +72,7 @@ function App() {
 
   return (
     <main className="app">
+      {tenzies && <Confetti />}
       <h3 className="header">Tenzies</h3>
       <p className="subhead">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
       <div className="die-container">
@@ -74,7 +81,7 @@ function App() {
       <button 
         className="btn"
         onClick={rollDice}>
-         {tenzies ? "Start over" : "Roll"}
+         {tenzies ? "New Game" : "Roll"}
         </button>
     </main>
   );
