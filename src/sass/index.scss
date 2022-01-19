@@ -40,21 +40,23 @@ body {
 */
 
 .die-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  display: grid;
+  grid-template: repeat(2, 1fr) / repeat(5, 1fr);
   margin: 1em;
 
 }
 
 .die {
-  padding: 0.5em 0.75em;
+  padding: 0.5em;
   width: 50px;
   height: 50px;
   margin: 0.5em;
   border-radius: 0.2em;
   background-color: $die-bg;
   cursor: pointer;
+
+  -webkit-box-shadow: 2px 2px 6px -1px rgba(0,0,0,0.43); 
+  box-shadow: 2px 2px 6px -1px rgba(0,0,0,0.43);
 }
 
 .die-value {
@@ -65,5 +67,23 @@ body {
 }
 
 .active-die {
-  background-color: aqua;
+  background-color: $die-saved;
+}
+
+/* 
+  BUTTON
+*/
+
+.btn {
+  background-color: $button-bg;
+  color: #fff;
+  border: none;
+  padding: 0.3em 1.75em;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  font-family: $font-family;
+  -webkit-box-shadow: 2px 2px 10px -1px rgba(0,0,0,0.63); 
+  box-shadow: 2px 2px 10px -1px rgba(0,0,0,0.63);
+  cursor: pointer;
 }

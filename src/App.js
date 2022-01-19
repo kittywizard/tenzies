@@ -1,12 +1,12 @@
 import React from "react";
 import Die from "./Die";
+import {nanoid} from "nanoid";
 
 function App() {
   const dieLength = 10;
   const min = 1;
   const max = 6;
   let diceArray;
-  let isWinner = false;
   let randomNum = (min, max) => Math.floor((Math.random() * (max - min + 1)) + min);
 
   const [die, setDie] = React.useState([]);
@@ -19,6 +19,7 @@ function App() {
       diceArray.push({
         value: randomNum(min, max),
         id: i+1,
+        key: nanoid(),
         active: false
       });
    } 
@@ -31,6 +32,8 @@ function App() {
       return !die.active ? {...die, value: randomNum(min, max)} : die
      }))
   }
+
+  let isWinner = false;
 
   function toggle(id) {
     setDie(prevState => prevState.map(die => {
@@ -56,7 +59,7 @@ function App() {
  let dieDisplay = die.map(die => {
     return <Die 
       value={die.value}
-      key={die.id}
+      key={die.key}
       id={die.id}
       active={die.active}
       setDie={setDie}
