@@ -11,10 +11,10 @@ function App() {
   let diceArray;
   let randomNum = (min, max) => Math.floor((Math.random() * (max - min + 1)) + min);
 
-  const [die, setDie] = React.useState([]);
-  const [tenzies, setTenzies] = React.useState(false);
+  const [die, setDie] = React.useState(rollAll);
+  const [tenzies, setTenzies] = React.useState(false); //tenzies is a boolean checking for win state
   const [rollTracker, setRollTracker] = React.useState(1);
-  const [scoreboard, setScoreboard] = React.useState(JSON.parse(localStorage.getItem('scoreboard')) || rollTracker);
+  const [scoreboard, setScoreboard] = React.useState(JSON.parse(localStorage.getItem('scoreboard')) || 1);
 
   //check each time the die array changes to see if there's a win
   React.useEffect(() => {
@@ -24,10 +24,32 @@ function App() {
       element.value == die[0].value
     }) ? setTenzies(true) : setTenzies(false)
 
-  }, [die])
+  }, [die]);
+
+  React.useEffect(() => {
+    if(tenzies) {
+      setScoreboard(rollTracker);
+      localStorage.setItem('scoreboard', JSON.stringify(scoreboard))
+    } 
+}, [tenzies]);
 
   //this should run only once - set up the initial dice rolls upon initial page render
-  React.useEffect(() => {
+  // React.useEffect(() => {
+  //   diceArray = [];
+
+  //   for(let i = 0; i < dieLength; i++) {
+  //     diceArray.push({
+  //       value: randomNum(min, max),
+  //       id: i+1,
+  //       key: nanoid(),
+  //       active: false
+  //     });
+  //  } 
+
+  //  setDie(diceArray);
+  // }, [diceArray]);
+
+  function rollAll() {
     diceArray = [];
 
     for(let i = 0; i < dieLength; i++) {
@@ -38,14 +60,18 @@ function App() {
         active: false
       });
    } 
-
-   setDie(diceArray);
-  }, [diceArray]);
+   return diceArray;
+  //setDie(diceArray);
+  }
 
   function rollDice() {
-    //check for win condition first
+    //check for win condition first 
     if(tenzies) {
-      window.location.reload();
+      //window.location.reload();
+      //if page reloads, local storage doesn't get updated, or pulled correctly (to the latest 'win')
+      setDie(rollAll);
+      setTenzies(false)
+      setRollTracker(0);
     }
 
     //update state if not
@@ -97,14 +123,10 @@ function App() {
           </div>
       }
 
-
       {/* {scoreboard.length > 1 && */}
-            <HighScores 
-              rolls={rollTracker}
-              tenzies={tenzies}
-              scoreboard={scoreboard}
-              setScoreboard={setScoreboard}
-            />
+      <div className="scores">
+            <h2 className="score-headline">Last Score: {scoreboard}</h2>
+        </div>
       
     </main>
   );

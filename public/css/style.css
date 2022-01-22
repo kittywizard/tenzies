@@ -88,4 +88,12 @@ body {
   font-size: 1.2rem;
 }
 
+.score-headline {
+  text-align: center;
+}
+
+.scores ol {
+  width: 400px;
+}
+
 /*# sourceMappingURL=style.css.map */

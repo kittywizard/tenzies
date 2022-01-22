@@ -43,7 +43,6 @@ body {
   display: grid;
   grid-template: repeat(2, 1fr) / repeat(5, 1fr);
   margin: 1em;
-
 }
 
 .die {
@@ -95,4 +94,12 @@ body {
 .roll-count {
   margin-top: 1em;
   font-size: 1.2rem;
+}
+
+.score-headline {
+  text-align: center;
+}
+
+.scores ol {
+  width: 400px;
 }
