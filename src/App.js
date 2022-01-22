@@ -2,6 +2,7 @@ import React from "react";
 import Die from "./Die";
 import {nanoid} from "nanoid";
 import Confetti from "react-confetti";
+import HighScores from "./HighScores";
 
 function App() {
   const dieLength = 10;
@@ -12,15 +13,17 @@ function App() {
 
   const [die, setDie] = React.useState([]);
   const [tenzies, setTenzies] = React.useState(false);
+  const [rollTracker, setRollTracker] = React.useState(1);
+  const [scoreboard, setScoreboard] = React.useState(JSON.parse(localStorage.getItem('scoreboard')) || rollTracker);
 
   //check each time the die array changes to see if there's a win
   React.useEffect(() => {
+    //potentially set this to a variable and then check it
     die.every(element => {
       return element.active &&
       element.value == die[0].value
     }) ? setTenzies(true) : setTenzies(false)
 
-    //potentially set this to a variable and then check it
   }, [die])
 
   //this should run only once - set up the initial dice rolls upon initial page render
@@ -49,6 +52,9 @@ function App() {
     setDie(prevState => prevState.map(die => {
       return !die.active ? {...die, value: randomNum(min, max)} : die
      }))
+
+     //update roll count
+     setRollTracker(prevState => prevState + 1);
   }
 
   function toggle(id) {
@@ -83,6 +89,23 @@ function App() {
         onClick={rollDice}>
          {tenzies ? "New Game" : "Roll"}
         </button>
+
+      {rollTracker > 1 &&
+          <div className="roll-count">
+          {tenzies ? "You won on Roll #" : "You're on Roll #"}
+          {rollTracker}
+          </div>
+      }
+
+
+      {/* {scoreboard.length > 1 && */}
+            <HighScores 
+              rolls={rollTracker}
+              tenzies={tenzies}
+              scoreboard={scoreboard}
+              setScoreboard={setScoreboard}
+            />
+      
     </main>
   );
 }
