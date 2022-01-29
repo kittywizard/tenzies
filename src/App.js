@@ -2,7 +2,6 @@ import React from "react";
 import Die from "./Die";
 import {nanoid} from "nanoid";
 import Confetti from "react-confetti";
-import HighScores from "./HighScores";
 
 function App() {
   const dieLength = 10;
@@ -21,7 +20,7 @@ function App() {
     //potentially set this to a variable and then check it
     die.every(element => {
       return element.active &&
-      element.value == die[0].value
+      element.value === die[0].value
     }) ? setTenzies(true) : setTenzies(false)
 
   }, [die]);
@@ -33,21 +32,6 @@ function App() {
     } 
 }, [tenzies]);
 
-  //this should run only once - set up the initial dice rolls upon initial page render
-  // React.useEffect(() => {
-  //   diceArray = [];
-
-  //   for(let i = 0; i < dieLength; i++) {
-  //     diceArray.push({
-  //       value: randomNum(min, max),
-  //       id: i+1,
-  //       key: nanoid(),
-  //       active: false
-  //     });
-  //  } 
-
-  //  setDie(diceArray);
-  // }, [diceArray]);
 
   function rollAll() {
     diceArray = [];
