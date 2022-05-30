@@ -45,14 +45,11 @@ function App() {
       });
    } 
    return diceArray;
-  //setDie(diceArray);
   }
 
   function rollDice() {
     //check for win condition first 
     if(tenzies) {
-      //window.location.reload();
-      //if page reloads, local storage doesn't get updated, or pulled correctly (to the latest 'win')
       setDie(rollAll);
       setTenzies(false)
       setRollTracker(0);
